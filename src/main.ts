@@ -1,5 +1,8 @@
 import './assets/main.css'
-import './config.js'; // Import the config file
+import './config.ts' // Import the config file
+import './shims-vue.d.ts'
+import './three-extended.d.ts'
+
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 

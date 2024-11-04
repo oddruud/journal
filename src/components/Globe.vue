@@ -7,9 +7,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import * as THREE from 'three'
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+//import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
+//import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
+//import { Font } from 'three/examples/jsm/loaders/FontLoader'
+//import { OrbitControls } from '../three/OrbitControls'
 import { gsap } from 'gsap'
 
 const globeCanvas = ref<HTMLCanvasElement | null>(null)
@@ -17,12 +18,13 @@ let scene: THREE.Scene
 let camera: THREE.PerspectiveCamera
 let renderer: THREE.WebGLRenderer
 let globe: THREE.Mesh
+
 const markers: THREE.Mesh[] = []
 let animationFrameId: number
 let glowMesh: THREE.Mesh
-let font: THREE.Font
+//let font: Font
 const labels: THREE.Mesh[] = []
-let controls: OrbitControls
+//let controls: OrbitControls
 let raycaster: THREE.Raycaster
 let mouse: THREE.Vector2
 const curves: THREE.Line[] = []
@@ -54,7 +56,7 @@ const CAMERA_CONFIG = {
 
 const RENDERER_CONFIG = {
   width: window.innerWidth,
-  height: window.innerHeigth,
+  height: window.innerHeight,
 }
 
 const CONTROLS_CONFIG = {
@@ -182,6 +184,7 @@ const initRaycaster = () => {
 }
 
 const initControls = () => {
+  /*
   const { dampingFactor, rotateSpeed } = CONTROLS_CONFIG
 
   controls = new OrbitControls(camera, renderer.domElement)
@@ -190,6 +193,7 @@ const initControls = () => {
   controls.rotateSpeed = rotateSpeed
   controls.enableZoom = true
   controls.enablePan = false
+  */
 }
 
 const initGlobe = () => {
@@ -385,14 +389,15 @@ const createPointLight = () => {
 }
 
 const loadFontAndAddCities = () => {
+  /*
   const fontLoader = new FontLoader()
   fontLoader.load(
     'https://threejs.org/examples/fonts/helvetiker_regular.typeface.json',
-    loadedFont => {
+    (loadedFont: Font) => {
       font = loadedFont
       addCitiesAndConnections()
     },
-  )
+  )*/
 }
 
 const addCitiesAndConnections = () => {
@@ -421,14 +426,14 @@ const addMarker = (latitude: number, longitude: number, cityName: string) => {
   markerScaleDirections.push(true)
 
   // Create and position label with local time
-  const label = createCityLabel(`${cityName} - ${localTime}`)
-  positionLabel(label, marker.position)
-  globe.add(label)
-  labels.push(label)
-  labelOpacities.push(0)
+  //const label = createCityLabel(`${cityName} - ${localTime}`)
+  //positionLabel(label, marker.position)
+  //globe.add(label)
+  //labels.push(label)
+  // labelOpacities.push(0)
 
   // Draw line from marker to label
-  drawLineToLabel(marker.position, label.position)
+  //drawLineToLabel(marker.position, label.position)
 
   // Store position for connections
   markerPositions[cityName] = marker.position.clone()
@@ -473,6 +478,7 @@ const positionOnGlobe = (
 }
 
 const createCityLabel = (cityName: string) => {
+  /*
   const textGeometry = new TextGeometry(cityName, {
     font: font,
     size: 0.05,
@@ -485,14 +491,15 @@ const createCityLabel = (cityName: string) => {
       transparent: true,
       opacity: 0,
     }),
-  )
+  )*/
 }
 
 const positionLabel = (label: THREE.Mesh, markerPosition: THREE.Vector3) => {
+  /*
   label.position.copy(markerPosition)
   label.position.multiplyScalar(1.2)
   label.lookAt(new THREE.Vector3(0, 0, 0))
-  label.rotateY(Math.PI)
+  label.rotateY(Math.PI)*/
 }
 
 const drawCurve = (city1: string, city2: string) => {
@@ -537,6 +544,7 @@ const addGlowEffect = () => {
 }
 
 const updateLocalTimes = () => {
+  /*
   CITIES.forEach((city, index) => {
     const localTime = calculateLocalTime(city.longitude)
     const label = labels[index]
@@ -547,13 +555,13 @@ const updateLocalTimes = () => {
     })
     label.geometry.dispose() // Dispose of the old geometry
     label.geometry = textGeometry // Assign the new geometry
-  })
+  })*/
 }
 
 const animate = () => {
   animationFrameId = requestAnimationFrame(animate)
 
-  controls.update()
+  // controls.update()
   updateLabels()
   animatePathSpheres()
   fadeInLabels()

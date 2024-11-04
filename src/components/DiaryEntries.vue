@@ -20,6 +20,15 @@
 import { ref, onMounted, defineProps } from 'vue'
 import DiaryEntry from './DiaryEntry.vue'
 
+interface Entry {
+  id: number
+  created_at: string
+  title: string
+  content: string
+  image_url: string
+  keywords: string
+}
+
 const props = defineProps<{
   startDate: string // New prop for the API URL
   endDate: string
@@ -29,7 +38,7 @@ const props = defineProps<{
 const baseUrl = window.config.backEndUrl
 const imageSrcBase = `${baseUrl}/image?name=`
 const diaryEntriesEndPoint = `${baseUrl}/diary-entries-by-date-range?start_date=${props.startDate}&end_date=${props.endDate}`
-const entries = ref([])
+const entries = ref<Entry[]>([]) // Explicitly define the type of entry
 
 const getDayOfWeek = (dateString: string): string => {
   const date = new Date(dateString)

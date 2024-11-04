@@ -41,7 +41,7 @@ import { ref, computed, nextTick } from 'vue'
 import { useAuthStore } from '../stores/auth'
 
 const chatHistory = ref<
-  { id: number; content: string; type: string; avatar: string }[]
+  { id: number; content: string; user: string; type: string; avatar: string }[]
 >([])
 const userInput = ref('')
 let messageId = 0
@@ -57,7 +57,7 @@ const sendMessage = async () => {
   chatHistory.value.push({
     id: messageId++,
     content: userInput.value,
-    user: userName.value,
+    user: userName.value || 'Anonymous',
     type: 'user',
     avatar: userAvatar.value || 'src/assets/avatar.svg',
   })

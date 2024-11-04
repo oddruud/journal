@@ -55,7 +55,7 @@ const handleRegister = async () => {
       'Registration successful! Please check your email for confirmation.' // Set success message
   } catch (error) {
     console.error('Error during registration:', error)
-    message.value = error // Set error message
+    message.value = error instanceof Error ? error.message : String(error) // Convert error to string
   }
 }
 </script>

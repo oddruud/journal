@@ -129,8 +129,14 @@ export default defineComponent({
 
     const startRecording = async () => {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      state.audioContext = new (window.AudioContext ||
-        window.webkitAudioContext)()
+      state.audioContext = new ((window as any).AudioContext ||
+        (window as any).webkitAudioContext)()
+
+      if (!state.audioContext) {
+        console.error('AudioContext is not initialized')
+        return
+      }
+
       state.analyser = state.audioContext.createAnalyser()
       const source = state.audioContext.createMediaStreamSource(stream)
       source.connect(state.analyser)
