@@ -256,8 +256,8 @@ function loadTexture(texturePath: string): THREE.Texture {
   )
 }
 
-const loadGlobeTexture = () => loadTexture("/assets/earth.jpg')
-const loadSecondaryTexture = () => loadTexture('src/assets/earth_night.jpg')
+const loadGlobeTexture = () => loadTexture('/assets/earth.jpg')
+const loadSecondaryTexture = () => loadTexture('/assets/earth_night.jpg')
 const loadCloudTexture = () => {
   const texture = loadTexture('src/assets/earth_clouds.jpg')
   texture.wrapS = THREE.RepeatWrapping
